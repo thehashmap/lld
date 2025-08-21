@@ -1,7 +1,7 @@
 package parkingLot.vehicle;
 
 public class Truck extends Vehicle{
-    public Truck(String licenseNumber, VehicleType type) {
+    public Truck(String licenseNumber) {
         super(licenseNumber, VehicleType.TRUCK);
     }
 }
