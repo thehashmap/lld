@@ -1,6 +1,6 @@
 package coffeeMachine.enums;
 
-public enum CoffeeTypes {
+public enum CoffeeType {
     ESPRESSO,
     CAPPUCCINO,
     FILTER,

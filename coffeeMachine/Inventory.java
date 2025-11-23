@@ -1,4 +1,4 @@
-package coffeeMachine.entity;
+package coffeeMachine;
 
 public class Inventory {
 

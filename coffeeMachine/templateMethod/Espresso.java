@@ -1,4 +1,4 @@
-package coffeeMachine.entity.templateMethod;
+package coffeeMachine.templateMethod;
 
 import coffeeMachine.enums.Ingredient;
 

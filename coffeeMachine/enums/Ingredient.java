@@ -1,6 +1,6 @@
 package coffeeMachine.enums;
 
-public enum Ingredients {
+public enum Ingredient {
     COFFEE_BEANS,
     MILK,
     SUGAR,
