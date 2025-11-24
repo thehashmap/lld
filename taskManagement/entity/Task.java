@@ -6,9 +6,10 @@ import taskManagement.enums.TaskStatus;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Task {
-    private String id;
+    private final String id;
     private String name;
     private String description;
     private String assignedUserId;
@@ -20,17 +21,62 @@ public class Task {
 
     private List<Comment> comments = new ArrayList<>();
 
-    public Task(String createdByUserId, String id, String name, String description, String assignedUserId,
-                TaskStatus status, TaskPriority priority, Instant createdAt, Instant updatedAt) {
-        this.createdByUserId = createdByUserId;
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.assignedUserId = assignedUserId;
-        this.status = status;
-        this.priority = priority;
-        this.createdAt = createdAt;
-        this.updatedAt = updatedAt;
+    private Task(TaskBuilder builder) {
+        this.createdByUserId = builder.createdByUserId;
+        this.id = UUID.randomUUID().toString();
+        this.name = builder.name;
+        this.description = builder.description;
+        this.assignedUserId = builder.assignedUserId;
+        this.status = builder.status;
+        this.priority = builder.priority;
+        this.createdAt = Instant.now();
+        this.updatedAt = Instant.now();
+    }
+
+    public static class TaskBuilder {
+        private final String id;
+        private String name;
+        private String description;
+        private String assignedUserId;
+        private final String createdByUserId;
+        private TaskStatus status = TaskStatus.TODO;
+        private TaskPriority priority = TaskPriority.MEDIUM;
+        private final Instant createdAt;
+        private Instant updatedAt;
+
+        public TaskBuilder(String createdByUserId, String name) {
+            this.id = UUID.randomUUID().toString();
+            this.createdByUserId = createdByUserId;
+            this.createdAt = Instant.now();
+        }
+
+        public TaskBuilder setAssignedUserId(String assignedUserId) {
+            this.assignedUserId = assignedUserId;
+            this.updatedAt = Instant.now();
+            return this;
+        }
+
+        public TaskBuilder setStatus(TaskStatus status) {
+            this.status = status;
+            this.updatedAt = Instant.now();
+            return this;
+        }
+
+        public TaskBuilder setPriority(TaskPriority priority) {
+            this.priority = priority;
+            this.updatedAt = Instant.now();
+            return this;
+        }
+
+        public TaskBuilder setDescription(String description) {
+            this.description = description;
+            this.updatedAt = Instant.now();
+            return this;
+        }
+
+        public Task build(){
+            return new Task(this);
+        }
     }
 
 
@@ -38,7 +84,63 @@ public class Task {
         return comments;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void addComment(Comment comment) { this.comments.add(comment);};
+
+    public String getAssignedUserId() {
+        return assignedUserId;
+    }
+
+    public void setAssignedUserId(String assignedUserId) { this.assignedUserId = assignedUserId;};
+
+    public String getCreatedByUserId() {
+        return createdByUserId;
+    }
+
+    public TaskStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TaskStatus status) {
+        this.status = status;
+    }
+
+    public TaskPriority getPriority() {
+        return priority;
+    }
+
+    public void setPriority(TaskPriority priority) {
+        this.priority = priority;
+    }
+
+    public Instant getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public Instant getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(Instant updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
